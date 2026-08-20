@@ -1,0 +1,30 @@
+:root {
+  --gmn-background: 215 30% 6%;
+  --gmn-foreground: 0 0% 98%;
+  --gmn-card: 215 25% 10%;
+  --gmn-card-foreground: 0 0% 98%;
+  --gmn-popover: 215 25% 8%;
+  --gmn-primary: 145 70% 44%;
+  --gmn-primary-foreground: 0 0% 100%;
+  --gmn-secondary: 215 20% 15%;
+  --gmn-muted: 215 15% 20%;
+  --gmn-muted-foreground: 210 10% 65%;
+  --gmn-border: 215 20% 18%;
+  --gmn-input: 215 20% 15%;
+  --gmn-ring: 145 70% 44%;
+  --gmn-radius: 1rem;
+  --gmn-shadow-card: 0 4px 20px hsl(0 0% 0% / 0.3);
+  --gmn-shadow-premium: 0 8px 32px hsl(0 0% 0% / 0.4);
+  --gmn-ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --gmn-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --gmn-duration-fast: 200ms;
+  --gmn-duration-normal: 300ms;
+  --gmn-duration-slow: 500ms;
+  --gmn-font-body: "Inter", system-ui, sans-serif;
+  --gmn-font-display: "Poppins", system-ui, sans-serif;
+}
+
+*{box-sizing:border-box}body{margin:0;background:hsl(var(--gmn-background));color:hsl(var(--gmn-foreground));font-family:var(--gmn-font-body)}a{color:inherit}.admin-shell{max-width:1180px;margin:0 auto;padding:32px 20px 72px}.admin-header{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:24px}.admin-header h1{font-family:var(--gmn-font-display);margin:.25rem 0}.admin-header p{color:hsl(var(--gmn-muted-foreground));max-width:720px}.admin-nav{display:flex;gap:10px;flex-wrap:wrap}.admin-nav a,.admin-card a{padding:10px 14px;border:1px solid hsl(var(--gmn-border));border-radius:12px;text-decoration:none}.admin-card,.menu-category{background:hsl(var(--gmn-card));border:1px solid hsl(var(--gmn-border));border-radius:var(--gmn-radius);padding:20px;margin:16px 0;box-shadow:var(--gmn-shadow-card)}.admin-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.span-2{grid-column:1/-1}.inline-form,.menu-item-editor{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0}.menu-item-editor{padding:14px;border:1px solid hsl(var(--gmn-border));border-radius:14px}.admin-shell input,.admin-shell textarea,.admin-shell select{width:100%;padding:10px 12px;border-radius:10px;border:1px solid hsl(var(--gmn-border));background:hsl(var(--gmn-input));color:hsl(var(--gmn-foreground))}.admin-shell label{display:grid;gap:6px}.admin-shell label:has(input[type=checkbox]){display:flex;align-items:center}.admin-shell input[type=checkbox]{width:auto}.admin-shell button{border:0;border-radius:10px;padding:10px 14px;background:hsl(var(--gmn-primary));color:hsl(var(--gmn-primary-foreground));font-weight:700;cursor:pointer}.admin-shell button.danger{background:hsl(0 70% 45%)}.primary-action{font-size:1rem;padding:14px 20px!important}.delivery-item{display:grid;grid-template-columns:1fr auto;gap:12px;padding:16px 0;border-bottom:1px solid #e5e7eb}.quantity{display:flex;gap:10px;align-items:center}.quantity button{width:34px;height:34px;border-radius:50%;border:1px solid #d1d5db;background:white}.checkout-card{position:sticky;bottom:0;background:white;padding:18px;margin-top:28px;border:1px solid #e5e7eb;border-radius:18px;box-shadow:0 12px 40px #0002}.totals{display:grid;gap:8px;margin-bottom:14px}.totals span{display:flex;justify-content:space-between}.checkout-form{display:grid;gap:10px}.checkout-form input,.checkout-form select,.checkout-form textarea{padding:12px;border:1px solid #d1d5db;border-radius:10px}.checkout-form button{padding:14px;border:0;border-radius:12px;background:#16a34a;color:#fff;font-weight:800}.checkout-form button:disabled{opacity:.5}@media(max-width:720px){.admin-header{display:block}.admin-nav{margin-top:16px}.admin-grid{grid-template-columns:1fr}.span-2{grid-column:auto}.menu-item-editor{display:grid}.admin-shell{padding:20px 14px 56px}}
+.admin-image-preview{display:block;width:100%;object-fit:cover;border:1px solid hsl(var(--gmn-border));border-radius:14px;margin-bottom:10px;background:hsl(var(--gmn-secondary))}.cover-preview{aspect-ratio:16/7}.logo-preview{width:112px;height:112px;border-radius:24px}.item-preview{width:88px;height:88px;margin:0}.brand-assets>form{padding:14px;border:1px solid hsl(var(--gmn-border));border-radius:14px}.item-actions{display:flex;gap:8px;align-items:center}
+.brand-preview{display:flex;gap:12px;align-items:center;margin:12px 0}.brand-preview img{max-width:220px;max-height:120px;object-fit:cover;border-radius:14px;border:1px solid hsl(var(--gmn-border))}.menu-item-editor>img{border-radius:12px;object-fit:cover}
+.locked-upsell{display:inline-flex;align-items:center;padding:8px 10px;border:1px dashed #94a3b8;border-radius:10px;color:#64748b;cursor:not-allowed;font-weight:700}

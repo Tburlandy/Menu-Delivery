@@ -1,0 +1,34 @@
+drop policy if exists menus_read on menus.menus;
+create policy menus_read on menus.menus for select to authenticated using(security.has_product_access((select auth.uid()),unit_id,'MENU','menu:view'));
+drop policy if exists menus_edit on menus.menus;
+create policy menus_edit on menus.menus for update to authenticated using(security.has_product_access((select auth.uid()),unit_id,'MENU','menu:edit')) with check(security.has_product_access((select auth.uid()),unit_id,'MENU','menu:edit'));
+
+drop policy if exists versions_read on menus.versions;
+create policy versions_read on menus.versions for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:view'));
+drop policy if exists categories_read on menus.categories;
+create policy categories_read on menus.categories for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:view'));
+drop policy if exists categories_edit on menus.categories;
+create policy categories_edit on menus.categories for all to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:edit')) with check(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:edit'));
+drop policy if exists items_read on menus.items;
+create policy items_read on menus.items for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:view'));
+drop policy if exists items_edit on menus.items;
+create policy items_edit on menus.items for all to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:edit')) with check(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:edit'));
+drop policy if exists source_batches_read on menus.source_batches;
+create policy source_batches_read on menus.source_batches for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:view'));
+drop policy if exists source_images_read on menus.source_images;
+create policy source_images_read on menus.source_images for select to authenticated using(exists(select 1 from menus.source_batches b where b.id=source_batch_id and security.has_product_access((select auth.uid()),menus.unit_for_menu(b.menu_id),'MENU','menu:view')));
+drop policy if exists publications_read on menus.publications;
+create policy publications_read on menus.publications for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'MENU','menu:view'));
+
+drop policy if exists delivery_settings_read on menus.delivery_settings;
+create policy delivery_settings_read on menus.delivery_settings for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage'));
+drop policy if exists delivery_settings_manage on menus.delivery_settings;
+create policy delivery_settings_manage on menus.delivery_settings for all to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage')) with check(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage'));
+drop policy if exists delivery_areas_read on menus.delivery_areas;
+create policy delivery_areas_read on menus.delivery_areas for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage'));
+drop policy if exists delivery_areas_manage on menus.delivery_areas;
+create policy delivery_areas_manage on menus.delivery_areas for all to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage')) with check(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage'));
+drop policy if exists orders_read on menus.orders;
+create policy orders_read on menus.orders for select to authenticated using(security.has_product_access((select auth.uid()),menus.unit_for_menu(menu_id),'WHATSAPP_DELIVERY','delivery:manage'));
+drop policy if exists order_lines_read on menus.order_lines;
+create policy order_lines_read on menus.order_lines for select to authenticated using(exists(select 1 from menus.orders o where o.id=order_id and security.has_product_access((select auth.uid()),menus.unit_for_menu(o.menu_id),'WHATSAPP_DELIVERY','delivery:manage')));

@@ -1,0 +1,33 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  bootstrap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install TypeScript compiler in isolated temp prefix
+        run: npm --prefix /tmp/gmn-ts install typescript@5.9.2
+      - name: Verify dependency-free bootstrap
+        run: PATH=/tmp/gmn-ts/node_modules/.bin:$PATH npm run verify:bootstrap
+
+  full:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.15.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+      - name: Lint, typecheck, test and production build
+        run: pnpm verify
