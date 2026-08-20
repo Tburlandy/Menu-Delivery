@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { requireMenuAccess } from '../../../../lib/core/require-menu-access';
 import {
-  addCategory, addItem, deleteCategory, deleteItem, publishMenu, updateCategoryFromForm, updateItemFromForm,
+  addCategory, addItem, deleteCategory, deleteItem, publishMenuFromForm, updateCategoryFromForm, updateItemFromForm,
   updateMenuProfile, uploadAndSetBrandImage,
 } from '../../../../modules/admin/actions';
-import { uploadMenuPhotosFromForm } from '../../../../modules/menu/upload-menu-photos';
+import { uploadMenuPhotosAction } from '../../../../modules/menu/upload-menu-photos';
 
 function price(cents: number | null) { return cents == null ? '' : (cents / 100).toFixed(2).replace('.', ','); }
 
@@ -23,7 +23,7 @@ export default async function MenuAdmin({ params }: { params: Promise<{ unitId: 
   return <main className="admin-shell">
     <header className="admin-header"><div><small>Cardápio digital</small><h1>{menu.name}</h1><p>Edite o rascunho e publique quando quiser. O cardápio público continua na última versão publicada.</p></div><nav className="admin-nav"><Link href={`/menus/${unitId}/versions`}>Versões</Link>{deliveryEnabled ? <Link href={`/menus/${unitId}/delivery`}>Delivery</Link> : <span className="locked-upsell" title="Upsell ainda não contratado">Delivery 🔒</span>}<a href={`${(process.env.NEXT_PUBLIC_CARDAPIO_URL ?? process.env.NEXT_PUBLIC_MENU_PUBLIC_URL ?? '').replace(/\/$/,'')}/${menu.slug}`} target="_blank" rel="noreferrer">Ver público</a></nav></header>
 
-    <section className="admin-card"><h2>Criar ou reprocessar a partir de fotos</h2><p>Envie novas fotos do cardápio físico. A IA extrai seções, itens, descrições e preços; a publicação anterior continua recuperável no histórico.</p><form action={uploadMenuPhotosFromForm.bind(null, menu.id)}><input type="file" name="files" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple required/><button>Extrair cardápio</button></form>{(batches ?? []).map((batch:any)=><p key={batch.id}><b>{batch.status}</b> — {new Date(batch.created_at).toLocaleString('pt-BR')} {batch.error_message ? `— ${batch.error_message}` : ''}</p>)}</section>
+    <section className="admin-card"><h2>Criar ou reprocessar a partir de fotos</h2><p>Envie novas fotos do cardápio físico. A IA extrai seções, itens, descrições e preços; a publicação anterior continua recuperável no histórico.</p><form action={uploadMenuPhotosAction.bind(null, menu.id)}><input type="file" name="files" accept="image/jpeg,image/png,image/webp,image/heic,image/heif" multiple required/><button>Extrair cardápio</button></form>{(batches ?? []).map((batch:any)=><p key={batch.id}><b>{batch.status}</b> — {new Date(batch.created_at).toLocaleString('pt-BR')} {batch.error_message ? `— ${batch.error_message}` : ''}</p>)}</section>
 
     <section className="admin-card"><h2>Restaurante</h2><form action={updateMenuProfile.bind(null, unitId)} className="admin-grid"><label>Nome<input name="name" defaultValue={menu.name}/></label><label>Telefone<input name="phone" defaultValue={(menu as any).phone ?? ''}/></label><label>WhatsApp<input name="whatsapp" defaultValue={(menu as any).whatsapp ?? ''}/></label><label>Endereço<input name="address" defaultValue={(menu as any).address ?? ''}/></label><label className="span-2">Descrição<textarea name="description" defaultValue={(menu as any).description ?? ''}/></label><button>Salvar dados</button></form><div className="admin-grid brand-assets"><form action={uploadAndSetBrandImage.bind(null, unitId, 'cover')}>{(menu as any).cover_image_url ? <img className="admin-image-preview cover-preview" src={(menu as any).cover_image_url} alt="Capa atual"/> : null}<label>Capa<input type="file" name="file" accept="image/jpeg,image/png,image/webp" required/></label><button>Trocar capa</button></form><form action={uploadAndSetBrandImage.bind(null, unitId, 'logo')}>{(menu as any).logo_image_url ? <img className="admin-image-preview logo-preview" src={(menu as any).logo_image_url} alt="Foto ou logo atual"/> : null}<label>Foto/logo<input type="file" name="file" accept="image/jpeg,image/png,image/webp" required/></label><button>Trocar foto/logo</button></form></div></section>
 
@@ -46,6 +46,6 @@ export default async function MenuAdmin({ params }: { params: Promise<{ unitId: 
         <form action={addItem.bind(null, unitId)} className="inline-form"><input type="hidden" name="categoryId" value={category.id}/><input name="title" placeholder="Novo item" required/><input name="description" placeholder="Descrição"/><input name="price" placeholder="Preço" inputMode="decimal"/><button>Adicionar item</button></form>
       </article>)}
     </section>
-    <form action={publishMenu.bind(null, unitId)}><button className="primary-action">Publicar alterações</button></form>
+    <form action={publishMenuFromForm.bind(null, unitId)}><button className="primary-action">Publicar alterações</button></form>
   </main>;
 }
