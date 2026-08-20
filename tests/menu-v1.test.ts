@@ -41,7 +41,7 @@ test('menu admin exposes complete item editing including moving groups and repla
   assert.match(page,/Limpar foto|Remover foto/i);
   assert.match(page,/cover_image_url/);
   assert.match(page,/logo_image_url/);
-  assert.match(page,/uploadMenuPhotosFromForm/);
+  assert.match(page,/uploadMenuPhotosAction/);
   assert.match(actions,/const categoryId = String\(form\.get\('categoryId'\)/);
   assert.match(actions,/\{ categoryId \}/);
   assert.match(actions,/clearImage/);
