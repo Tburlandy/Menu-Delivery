@@ -28,6 +28,6 @@ export async function uploadMenuPhotosFromForm(menuId:string,formData:FormData){
   return uploadMenuPhotos(menuId,files);
 }
 
-export async function uploadMenuPhotosAction(menuId:string,formData:FormData){
-  return uploadMenuPhotosFromForm(menuId,formData);
+export async function uploadMenuPhotosAction(menuId:string,formData:FormData):Promise<void>{
+  await uploadMenuPhotosFromForm(menuId,formData);
 }
