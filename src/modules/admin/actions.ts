@@ -21,7 +21,6 @@ async function menuForUnit(unitId: string, permission: MenuPermission = 'menu:ed
   return { ...access, menu };
 }
 
-
 function refresh(unitId: string) {
   revalidatePath(`/menus/${unitId}`);
   revalidatePath(`/menus/${unitId}/versions`);
@@ -178,6 +177,10 @@ export async function publishMenu(unitId: string, reason = 'MANUAL_PUBLISH') {
   if (error) throw error;
   refresh(unitId);
   return data;
+}
+
+export async function publishMenuFromForm(unitId: string, _form: FormData): Promise<void> {
+  await publishMenu(unitId);
 }
 
 export async function rollbackMenu(unitId: string, versionId: string) {
